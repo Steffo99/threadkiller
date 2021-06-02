@@ -12,9 +12,9 @@ Installation
         $ python -m venv venv
         $ source venv/bin/activate
 
-#. Install the ``threadripper`` package::
+#. Install the ``threadkiller`` package::
 
-        $ pip install threadripper
+        $ pip install threadkiller
 
 #. Set the ``TG_TOKEN`` variable to the token obtained from BotFather::
 
@@ -22,7 +22,7 @@ Installation
 
 #. Run the package as a module::
 
-        $ python -m threadripper
+        $ python -m threadkiller
 
 
 Usage
