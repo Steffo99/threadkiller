@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "threadkiller"
-version = "1.0.0"
-description = "Telegram bot to delete messages outside threads"
+version = "1.0.1"
+description = "A Telegram bot to delete messages sent outside of channel comment threads"
 authors = ["Stefano Pigozzi <me@steffo.eu>"]
 license = "AGPL-3.0-or-later"
 

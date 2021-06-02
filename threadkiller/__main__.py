@@ -4,8 +4,8 @@ from telegram.ext import Filters
 
 
 def yeetus_deletus(update: telegram.Update, _context: telegram.ext.CallbackContext):
-    update.message.reply_markdown_v2('⚠️ To send messages in this group, please **Comment** on posts of the associated'
-                                     ' channel.')
+    update.message.reply_text('⚠️ To send messages in this group, please Comment on posts of the associated'
+                              ' channel.')
     update.message.delete()
 
 
