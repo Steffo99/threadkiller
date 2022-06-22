@@ -1,22 +1,28 @@
 import os
+import telegram
 import telegram.ext
-from telegram.ext import Filters
+from telegram.ext import filters
+from . import config
+from . import handlers
 
 
-def yeetus_deletus(update: telegram.Update, _context: telegram.ext.CallbackContext):
-    try:
-        update.message.reply_text('⚠️ To send messages in this group, please Comment on posts of the associated'
-                                  ' channel.')
-    except telegram.error.RetryAfter:
-        pass
-    update.message.delete()
+config.config.proxies.resolve()
+application = telegram.ext.ApplicationBuilder().token(config.TG_BOT_TOKEN).build()
 
-
-updater = telegram.ext.Updater(token=os.environ["TG_TOKEN"])
-updater.dispatcher.add_handler(
-    telegram.ext.MessageHandler(~Filters.reply & Filters.group & ~Filters.user(777000) & ~Filters.status_update,
-                                yeetus_deletus)
+application.add_handler(
+    telegram.ext.CommandHandler(
+        "thread",
+        handlers.pin_thread,
+        block=False,
+    )
 )
 
+application.add_handler(
+    telegram.ext.MessageHandler(
+        ~filters.REPLY & filters.ChatType.GROUPS & ~filters.User(user_id=777000) & ~filters.StatusUpdate.ALL & ~filters.COMMAND,
+        handlers.purge,
+        block=False,
+    )
+)
 
-updater.start_polling()
+application.run_polling()

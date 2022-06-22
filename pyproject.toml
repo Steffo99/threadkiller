@@ -6,8 +6,9 @@ authors = ["Stefano Pigozzi <me@steffo.eu>"]
 license = "AGPL-3.0-or-later"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-python-telegram-bot = "^13.5"
+python = "^3.10"
+python-telegram-bot = "^20.0a1"
+cfig = {extras = ["cli"], version = "^0.2.3"}
 
 [tool.poetry.dev-dependencies]
 
