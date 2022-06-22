@@ -3,7 +3,19 @@ import re
 import telegram
 import telegram.error
 import telegram.ext
+import telegram.constants
 from . import config
+from . import strings
+
+
+async def ephemeral_reply_text(update: telegram.Update, msg, **kwargs):
+    reply = await update.effective_chat.send_message(msg, parse_mode=telegram.constants.ParseMode.HTML, disable_notification=True, **kwargs)
+    await asyncio.sleep(config.TK_NOTIFY_SECS)
+    await reply.delete()
+
+
+async def start(update: telegram.Update, context: telegram.ext.CallbackContext):
+    await update.effective_chat.send_message(strings.start.format(bot_name=context.bot.username), parse_mode=telegram.constants.ParseMode.HTML, disable_web_page_preview=True)
 
 
 async def purge(update: telegram.Update, _context: telegram.ext.CallbackContext):
@@ -17,17 +29,15 @@ async def purge(update: telegram.Update, _context: telegram.ext.CallbackContext)
         notify = False
     
     if notify and comments:
-        reply = await update.effective_chat.send_message('⚠️ This is a comment group for a channel, but your message was not in reply to any post, so it won\'t probably be seen by anybody: please Comment on posts of the associated channel instead!', disable_notification=True)
+        msg = strings.notify_comments 
     elif notify:
-        reply = await update.effective_chat.send_message('⚠️ This is a threaded group, but your message is not in a thread, so it is likely that people will not notice your message: either create a /thread or send your message as a reply to an existing message instead!', disable_notification=True)
+        msg = strings.notify_threads
     elif comments:
-        reply = await update.effective_chat.send_message('⛔️ Sending regular messages in this group is not allowed: please Comment on posts of the associated channel instead.', disable_notification=True)
+        msg = strings.delete_comments
     else:
-        reply = await update.effective_chat.send_message('⛔️ Sending regular messages in this group is not allowed: all messages should start with /thread or be replies to other messages.', disable_notification=True)
-    
-    await asyncio.sleep(config.TK_NOTIFY_SECS)
+        msg = strings.delete_threads
 
-    await reply.delete()
+    asyncio.create_task(ephemeral_reply_text(update, msg))
 
 
 async def pin_thread(update: telegram.Update, _context: telegram.ext.CallbackContext):
@@ -35,15 +45,18 @@ async def pin_thread(update: telegram.Update, _context: telegram.ext.CallbackCon
     try:
         (_, title) = update.effective_message.text.split(" ", 1)
     except ValueError:
-        reply = await update.message.reply_text('🚫 You cannot create threads without a title.')
-        await asyncio.sleep(config.TK_NOTIFY_SECS)
-        await reply.delete()
+        asyncio.create_task(ephemeral_reply_text(update, strings.error_missing_title))
         return
     
-    await update.effective_message.pin(disable_notification=True)
+    # Pin
+    try:
+        await update.effective_message.pin(disable_notification=True)
+    except (telegram.error.Forbidden, telegram.error.BadRequest):
+        asyncio.create_task(ephemeral_reply_text(update, strings.error_no_threads_allowed))
 
 
 __all__ = (
+    "start",
     "purge",
     "pin_thread",
 )

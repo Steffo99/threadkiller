@@ -12,16 +12,26 @@ def main():
 
     application.add_handler(
         telegram.ext.CommandHandler(
-            "thread",
-            handlers.pin_thread,
+            callback=handlers.pin_thread,
+            command="thread",
+            filters=filters.ChatType.GROUPS,
+            block=False,
+        )
+    )
+
+    application.add_handler(
+        telegram.ext.CommandHandler(
+            callback=handlers.start,
+            command="start",
+            filters=filters.ChatType.PRIVATE,
             block=False,
         )
     )
 
     application.add_handler(
         telegram.ext.MessageHandler(
-            ~filters.REPLY & filters.ChatType.GROUPS & ~filters.User(user_id=777000) & ~filters.StatusUpdate.ALL & ~filters.COMMAND,
-            handlers.purge,
+            callback=handlers.purge,
+            filters=~filters.REPLY & filters.ChatType.GROUPS & ~filters.User(user_id=777000) & ~filters.StatusUpdate.ALL & ~filters.COMMAND,
             block=False,
         )
     )
