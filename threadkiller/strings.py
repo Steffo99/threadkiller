@@ -4,9 +4,9 @@ I'm a bot designed to keep all messages in a group inside of a reply thread.
 
 To use my features, <a href="https://t.me/{bot_name}?startgroup=yes">add me to a group</a>!
 
-If you give me the <b>Delete Messages</b> permission, I will delete all messages sent outside of reply threads, otherwise, I'll just notify the users.
+If you give me the <b>Delete Messages</b> permission, I will delete all messages sent outside of reply threads, otherwise, I'll just notify the senders.
 
-If you add me to a <b>channel discussion group</b>, I will suggest that your users use the Comment feature of your channel.
+If you add me to a <b>channel discussion group</b>, I will suggest that your senders use the Comment feature of your channel.
 
 If you give me the <b>Pin Messages</b> permission, I will pin all messages starting with /thread.
 
