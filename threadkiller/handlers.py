@@ -43,7 +43,7 @@ async def purge(update: telegram.Update, _context: telegram.ext.CallbackContext)
 async def pin_thread(update: telegram.Update, _context: telegram.ext.CallbackContext):
     # Check
     try:
-        (_, title) = update.effective_message.text.split(" ", 1)
+        (_, _) = update.effective_message.text.split(" ", 1)
     except ValueError:
         asyncio.create_task(ephemeral_reply_text(update, strings.error_missing_title))
         return
