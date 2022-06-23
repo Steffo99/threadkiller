@@ -13,6 +13,8 @@ If you give me the <b>Pin Messages</b> permission, I will pin all messages start
 Be aware that by using me, it might become impossible to forward messages in the group, since messages <u>cannot be forwarded inside threads</u>.
 """
 
+version = """ℹ️ <a href="https://github.com/Steffo99/threadkiller/">Threadkiller</a> <b><a href="https://github.com/Steffo99/threadkiller/releases/tag/v{version}">v{version}</a></b>"""
+
 error_missing_title = """🚫 You cannot create threads without a title."""
 
 error_no_threads_allowed = """🚫 Threads cannot be created in this group."""

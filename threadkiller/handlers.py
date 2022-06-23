@@ -3,6 +3,7 @@ import telegram
 import telegram.error
 import telegram.ext
 import telegram.constants
+import pkg_resources
 from . import config
 from . import strings
 
@@ -37,6 +38,10 @@ async def purge(update: telegram.Update, _context: telegram.ext.CallbackContext)
         msg = strings.delete_threads
 
     asyncio.create_task(ephemeral_reply_text(update, msg))
+
+
+async def version(update: telegram.Update, _context: telegram.ext.CallbackContext):
+    asyncio.create_task(ephemeral_reply_text(update, strings.version.format(version=pkg_resources.get_distribution("threadkiller").version)))
 
 
 async def pin_thread(update: telegram.Update, _context: telegram.ext.CallbackContext):

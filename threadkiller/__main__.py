@@ -29,6 +29,15 @@ def main():
     )
 
     application.add_handler(
+        telegram.ext.CommandHandler(
+            callback=handlers.version,
+            command="version",
+            filters=filters.ChatType.PRIVATE,
+            block=False,
+        )
+    )
+
+    application.add_handler(
         telegram.ext.MessageHandler(
             callback=handlers.purge,
             filters=~filters.REPLY & filters.ChatType.GROUPS & ~filters.User(user_id=777000) & ~filters.StatusUpdate.ALL & ~filters.COMMAND,
