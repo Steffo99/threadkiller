@@ -58,7 +58,7 @@ jobs:
           path: dist/
 
       - name: "🌐 Create release"
-        uses: ncipollo/release-action@v1.11.0
+        uses: ncipollo/release-action@v1.11.1
         with:
           artifactErrorsFailBuild: true
           artifacts: dist/*
