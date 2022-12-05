@@ -94,7 +94,7 @@ jobs:
 
       - name: "❓ Find the release semantic version"
         id: semver
-        uses: Steffo99/actions-semver@v0.3.4
+        uses: Steffo99/actions-semver@v0.3.5
         with:
           string: ${{ github.ref_name }}
 
