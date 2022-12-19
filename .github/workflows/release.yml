@@ -26,7 +26,7 @@ jobs:
         uses: abatilo/actions-poetry@v2.2.0
 
       - name: "🔨 Setup Poetry Python environment"
-        uses: Steffo99/actions-poetry-deps@v0.2.4
+        uses: Steffo99/actions-poetry-deps@v0.2.5
 
       - name: "🏗 Build package with Poetry"
         run: poetry build --no-interaction
