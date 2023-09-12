@@ -115,7 +115,7 @@ jobs:
           string: ${{ github.repository }}
 
       - name: "🏗 Build and push the Docker image"
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           target: "entrypoint"
           tags: >-
